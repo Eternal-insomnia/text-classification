@@ -9,6 +9,11 @@ pip install uv
 uv sync
 uv run python src/text_classification/__init__.py
 ```
+Before starting the S3-compatible storage (RustFS) check `.env.example` file. It contains the necessary variables to run RustFS. Use:
+```bash
+docker volume create s3data
+docker compose up -d
+```
 
 Also there are `ruff` and `ty`. Usage:
 ```bash

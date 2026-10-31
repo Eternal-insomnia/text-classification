@@ -1,0 +1,18 @@
+services:
+  s3:
+    image: docker.io/rustfs/rustfs:latest # lock version in the future
+    container_name: s3
+    restart: always
+    ports:
+      - "9000:9000"  # S3 API
+      - "9001:9001"  # Web Console
+    env_file:
+      - .env
+    volumes:
+      - s3data:/data
+
+# existing volume
+volumes:
+  s3data:
+    external: true
+    name: s3data
