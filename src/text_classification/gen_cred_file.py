@@ -14,3 +14,5 @@ with open(file=file, mode="w", encoding="UTF-8") as f:
     f.write("[default]\n")
     f.write(f"aws_access_key_id={aws_access_key_id}\n")
     f.write(f"aws_secret_access_key={aws_secret_access_key}\n")
+
+print("Created .dvc-aws-credentials")
