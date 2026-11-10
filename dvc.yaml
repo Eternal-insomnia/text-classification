@@ -1,0 +1,10 @@
+stages:
+  prepare:
+    cmd: uv run python src/text_classification/data_processing/process.py
+    deps:
+    - src/text_classification/data_processing/process.py
+    - data/raw/ag_news_train.csv
+    - data/raw/ag_news_test.csv
+    outs:
+    - data/processed/ag_news_train_proc.csv
+    - data/processed/ag_news_test_proc.csv

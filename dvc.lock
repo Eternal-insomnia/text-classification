@@ -1,0 +1,26 @@
+schema: '2.0'
+stages:
+  prepare:
+    cmd: uv run python src/text_classification/data_processing/process.py
+    deps:
+    - path: data/raw/ag_news_test.csv
+      hash: md5
+      md5: 2a3ae7ef5a1ac5563600b0bb18cffc47
+      size: 1822708
+    - path: data/raw/ag_news_train.csv
+      hash: md5
+      md5: 9614e8adbb88bf9abf40ae9a7946f2f6
+      size: 28924927
+    - path: src/text_classification/data_processing/process.py
+      hash: md5
+      md5: c503ad3ce6c82afbabe62a70ef6d66b2
+      size: 2895
+    outs:
+    - path: data/processed/ag_news_test_proc.csv
+      hash: md5
+      md5: 387b2cba8c46542d277bb664cf847399
+      size: 1391198
+    - path: data/processed/ag_news_train_proc.csv
+      hash: md5
+      md5: 93ec5b4fe97022f326c7cacf95656b41
+      size: 22065537

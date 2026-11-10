@@ -1,6 +1,7 @@
 [core]
     remote = storage
+    autostage = true
 ['remote "storage"']
     url = s3://test-bucket/
     endpointurl = http://localhost:9000
-    credentialpath = "../.dvc-aws-credentials"
+    credentialpath = ../.dvc-aws-credentials
