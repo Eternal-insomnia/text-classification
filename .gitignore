@@ -221,3 +221,6 @@ __marimo__/
 
 # DVC local aws credentials
 .dvc-aws-credentials
+
+# GigaCode
+.gigacode_vsc
