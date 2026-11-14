@@ -58,3 +58,20 @@ exclude = ["build", "dist"]
 
 [tool.ty.environment]
 python-version = "3.12"
+
+[tool.pytest.ini_options]
+addopts = "--cov=src/text_classification"
+
+[tool.coverage.run]
+source = ["src/text_classification"]
+omit = [
+    "src/text_classification/gen_cred_file.py",
+    "src/text_classification/data_processing/feature_extraction.py",
+    "src/text_classification/eda.py",
+]
+
+[tool.coverage.report]
+exclude_lines = [
+    "pragma: no cover",
+    "if __name__ == .__main__.",
+]

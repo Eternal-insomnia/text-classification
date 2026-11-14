@@ -224,3 +224,6 @@ __marimo__/
 
 # GigaCode
 .gigacode_vsc
+
+# Program outputs
+outputs/
