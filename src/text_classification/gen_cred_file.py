@@ -4,8 +4,8 @@ from dotenv import load_dotenv
 
 load_dotenv()
 
-aws_access_key_id = os.getenv('RUSTFS_ACCESS_KEY', 'write id at RUSTFS_ACCESS_KEY at .env')
-aws_secret_access_key = os.getenv('RUSTFS_SECRET_KEY', 'write id at RUSTFS_SECRET_KEY at .env')
+aws_access_key_id = os.getenv("RUSTFS_ACCESS_KEY", "write id at RUSTFS_ACCESS_KEY at .env")
+aws_secret_access_key = os.getenv("RUSTFS_SECRET_KEY", "write id at RUSTFS_SECRET_KEY at .env")
 
 file = ".dvc-aws-credentials"
 

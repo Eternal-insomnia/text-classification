@@ -7,9 +7,7 @@ from scipy.sparse._csr import csr_matrix
 from sklearn.feature_extraction.text import TfidfVectorizer
 
 
-def create_vectorizer(
-    max_features: int = 10000, ngram_range: tuple = (1, 2)
-) -> TfidfVectorizer:
+def create_vectorizer(max_features: int = 10000, ngram_range: tuple = (1, 2)) -> TfidfVectorizer:
     """Create TF-IDF vectorizer with given parameters."""
     return TfidfVectorizer(
         max_features=max_features,
@@ -39,7 +37,7 @@ def save_vectorizer(vectorizer, filepath: str = "data/processed/vectorizer.jobli
 
 def save_features(X: csr_matrix, filepath: str = "data/processed/autonamed_features.npz") -> None:
     os.makedirs(os.path.dirname(filepath), exist_ok=True)
-    save_npz(file=filepath , matrix=X)
+    save_npz(file=filepath, matrix=X)
 
 
 def main():
@@ -57,7 +55,7 @@ def main():
     save_vectorizer(vectorizer)
     save_features(X_train, "data/processed/X_train.npz")
     save_features(X_test, "data/processed/X_test.npz")
-    
+
 
 if __name__ == "__main__":
     main()
