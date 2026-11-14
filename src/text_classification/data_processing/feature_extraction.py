@@ -2,6 +2,7 @@ import os
 
 import pandas as pd
 from joblib import dump
+from scipy.sparse import save_npz
 from scipy.sparse._csr import csr_matrix
 from sklearn.feature_extraction.text import TfidfVectorizer
 
@@ -36,9 +37,9 @@ def save_vectorizer(vectorizer, filepath: str = "data/processed/vectorizer.jobli
     dump(vectorizer, filepath)
 
 
-def save_features(X: csr_matrix, filepath: str = "data/processed/X_train.joblib") -> None:
+def save_features(X: csr_matrix, filepath: str = "data/processed/autonamed_features.npz") -> None:
     os.makedirs(os.path.dirname(filepath), exist_ok=True)
-    dump(X, filepath)
+    save_npz(file=filepath , matrix=X)
 
 
 def main():
@@ -54,8 +55,8 @@ def main():
     X_test = transform_data(df_test["text"], vectorizer)
 
     save_vectorizer(vectorizer)
-    save_features(X_train, "data/processed/X_train.joblib")
-    save_features(X_test, "data/processed/X_test.joblib")
+    save_features(X_train, "data/processed/X_train.npz")
+    save_features(X_test, "data/processed/X_test.npz")
     
 
 if __name__ == "__main__":

@@ -8,3 +8,13 @@ stages:
     outs:
     - data/processed/ag_news_train_proc.csv
     - data/processed/ag_news_test_proc.csv
+  feature_extraction:
+    cmd: uv run python src/text_classification/data_processing/feature_extraction.py
+    deps:
+    - src/text_classification/data_processing/feature_extraction.py
+    - data/processed/ag_news_train_proc.csv
+    - data/processed/ag_news_test_proc.csv
+    outs:
+    - data/processed/vectorizer.joblib
+    - data/processed/X_train.npz
+    - data/processed/X_test.npz

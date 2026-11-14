@@ -24,3 +24,32 @@ stages:
       hash: md5
       md5: 93ec5b4fe97022f326c7cacf95656b41
       size: 22065537
+  feature_extraction:
+    cmd: uv run python 
+      src/text_classification/data_processing/feature_extraction.py
+    deps:
+    - path: data/processed/ag_news_test_proc.csv
+      hash: md5
+      md5: 387b2cba8c46542d277bb664cf847399
+      size: 1391198
+    - path: data/processed/ag_news_train_proc.csv
+      hash: md5
+      md5: 93ec5b4fe97022f326c7cacf95656b41
+      size: 22065537
+    - path: src/text_classification/data_processing/feature_extraction.py
+      hash: md5
+      md5: dae89a1f7347654f85b0ec8b5252d5b4
+      size: 1955
+    outs:
+    - path: data/processed/X_test.npz
+      hash: md5
+      md5: 2b6514a2686f1cd100ac068d62a82660
+      size: 1577122
+    - path: data/processed/X_train.npz
+      hash: md5
+      md5: 09d13657e0f2aa914a7cdf53cd493cba
+      size: 24537215
+    - path: data/processed/vectorizer.joblib
+      hash: md5
+      md5: ebcaecec79f5d3ef4ebbb7df0b24971f
+      size: 383721
