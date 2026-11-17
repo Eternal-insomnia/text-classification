@@ -1,15 +1,31 @@
 stages:
   prepare:
     cmd: >-
-      uv run python src/text_classification/data_processing/process.py
+      uv run python ${workdir}/data_processing/process.py
       --input ${data.raw_dir}
       --output ${data.processed_dir}
       --nltk ${data.nltk_dir}
     deps:
-    - src/text_classification/data_processing/process.py
+    - ${workdir}/data_processing/process.py
     - ${data.raw_dir}/ag_news_train.csv
     - ${data.raw_dir}/ag_news_test.csv
     outs:
     - ${data.processed_dir}/ag_news_proc.parquet
     params:
     - data.raw_dir
+  split:
+    cmd: >-
+      uv run python ${workdir}/data_processing/split.py
+      --workdir ${data.processed_dir}
+      --test_size ${data.test_size}
+      --random_state ${data.random_state}
+    deps:
+    - ${workdir}/data_processing/split.py
+    - ${data.processed_dir}/ag_news_proc.parquet
+    outs:
+    - ${data.processed_dir}/train.parquet
+    - ${data.processed_dir}/test.parquet
+    params:
+    - data.processed_dir
+    - data.test_size
+    - data.random_state

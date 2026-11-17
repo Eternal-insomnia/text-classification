@@ -14,8 +14,8 @@ stages:
       size: 28924927
     - path: src/text_classification/data_processing/process.py
       hash: md5
-      md5: 6c7e5f623a1a3f1fd67360bddda1d4f2
-      size: 6085
+      md5: e0d3be8f983ee2527c095ff06fcf691e
+      size: 6117
     params:
       params.yaml:
         data.raw_dir: data/raw
@@ -53,3 +53,29 @@ stages:
       hash: md5
       md5: ebcaecec79f5d3ef4ebbb7df0b24971f
       size: 383721
+  split:
+    cmd: uv run python src/text_classification/data_processing/split.py 
+      --workdir data/processed --test_size 0.2 --random_state 42
+    deps:
+    - path: data/processed/ag_news_proc.parquet
+      hash: md5
+      md5: 9042f4b168736af4beaa8f4cc5b0ff2a
+      size: 13826743
+    - path: src/text_classification/data_processing/split.py
+      hash: md5
+      md5: e08a58ede6842d6a20303a7861925e3c
+      size: 1364
+    params:
+      params.yaml:
+        data.processed_dir: data/processed
+        data.random_state: 42
+        data.test_size: 0.2
+    outs:
+    - path: data/processed/test.parquet
+      hash: md5
+      md5: 463ab0654914645a422ac218d2eb7e68
+      size: 3025635
+    - path: data/processed/train.parquet
+      hash: md5
+      md5: a3c38d3ce99a541c4e990724adce1198
+      size: 12068488
