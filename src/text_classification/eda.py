@@ -103,7 +103,7 @@ def print_sample_texts(df: pd.DataFrame, n: int = 3) -> None:
             logger.info("  - %s", display_text)
 
 
-def run_eda(csv_path: str) -> pd.DataFrame:
+def run_eda(csv_path: Path) -> pd.DataFrame:
     """Run the full EDA pipeline on a CSV file.
 
     Args:
@@ -130,7 +130,7 @@ def run_eda(csv_path: str) -> pd.DataFrame:
 def main() -> None:
     """Entry point for EDA script."""
     logging.basicConfig(level=logging.INFO, format="%(levelname)s: %(message)s")
-    csv_path = "data/raw/ag_news_train.csv"
+    csv_path = Path("data/raw/ag_news_train.csv")
     run_eda(csv_path)
 
 
