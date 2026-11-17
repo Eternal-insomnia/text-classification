@@ -1,7 +1,8 @@
 schema: '2.0'
 stages:
   prepare:
-    cmd: uv run python src/text_classification/data_processing/process.py
+    cmd: uv run python src/text_classification/data_processing/process.py 
+      --input data/raw --output data/processed --nltk data/nltk
     deps:
     - path: data/raw/ag_news_test.csv
       hash: md5
@@ -13,17 +14,16 @@ stages:
       size: 28924927
     - path: src/text_classification/data_processing/process.py
       hash: md5
-      md5: c503ad3ce6c82afbabe62a70ef6d66b2
-      size: 2895
+      md5: 6c7e5f623a1a3f1fd67360bddda1d4f2
+      size: 6085
+    params:
+      params.yaml:
+        data.raw_dir: data/raw
     outs:
-    - path: data/processed/ag_news_test_proc.csv
+    - path: data/processed/ag_news_proc.parquet
       hash: md5
-      md5: 387b2cba8c46542d277bb664cf847399
-      size: 1391198
-    - path: data/processed/ag_news_train_proc.csv
-      hash: md5
-      md5: 93ec5b4fe97022f326c7cacf95656b41
-      size: 22065537
+      md5: 9042f4b168736af4beaa8f4cc5b0ff2a
+      size: 13826743
   feature_extraction:
     cmd: uv run python 
       src/text_classification/data_processing/feature_extraction.py

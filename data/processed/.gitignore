@@ -3,3 +3,4 @@
 /vectorizer.joblib
 /X_train.npz
 /X_test.npz
+/ag_news_proc.parquet
