@@ -1,0 +1,6 @@
+outs:
+- md5: 8fd51af43ea674581827c6bb2e562a83.dir
+  size: 18145711
+  nfiles: 40
+  hash: md5
+  path: nltk
