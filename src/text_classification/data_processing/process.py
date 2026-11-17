@@ -37,7 +37,7 @@ def _ensure_nltk_data(nltk_path: Path = Path("data/nltk")) -> None:
                 logger.warning("Failed to download NLTK %s: %s", resource_id, exc)
 
 
-def load_file(file: Path) -> pd.DataFrame:
+def load_data_csv(file: Path) -> pd.DataFrame:
     """Load a CSV file and validate that it contains 'text' and 'label' columns.
     Counts missing values.
 
@@ -164,8 +164,8 @@ def preprocess_dataframe(df: pd.DataFrame, text_col: str = "text") -> pd.DataFra
     return df
 
 
-def save_data(df: pd.DataFrame, path: Path = Path("data/processed/tmp.parquet")) -> None:
-    """Save DataFrame to CSV.
+def save_data_parquet(df: pd.DataFrame, path: Path = Path("data/processed/tmp.parquet")) -> None:
+    """Save DataFrame to Parquet.
 
     Args:
         df: DataFrame to save.
@@ -183,8 +183,8 @@ def main() -> None:
 
     _ensure_nltk_data(nltk_path=args.nltk)
 
-    df_test = load_file(args.input / "ag_news_test.csv")
-    df_train = load_file(args.input / "ag_news_train.csv")
+    df_test = load_data_csv(args.input / "ag_news_test.csv")
+    df_train = load_data_csv(args.input / "ag_news_train.csv")
 
     df_test_preprocessed = preprocess_dataframe(df_test)
     df_train_preprocessed = preprocess_dataframe(df_train)
@@ -192,7 +192,7 @@ def main() -> None:
         [df_train_preprocessed, df_test_preprocessed], axis=0, join="inner", ignore_index=True
     )
 
-    save_data(df_concat, args.output / "ag_news_proc.parquet")
+    save_data_parquet(df_concat, args.output / "ag_news_proc.parquet")
 
 
 if __name__ == "__main__":
