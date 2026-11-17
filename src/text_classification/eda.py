@@ -8,7 +8,7 @@ import matplotlib.pyplot as plt
 import pandas as pd
 import seaborn as sns
 
-from text_classification.data_processing.process import load_file
+from text_classification.data_processing.process import load_data_csv
 
 logger = logging.getLogger(__name__)
 
@@ -33,7 +33,14 @@ def analyze_class_distribution(df: pd.DataFrame, save: bool = True) -> None:
     class_counts = df["label"].value_counts().sort_index()
 
     fig, ax = plt.subplots(figsize=(8, 5))
-    sns.barplot(x=class_counts.index, y=class_counts.values, hue=class_counts.index, palette="viridis", ax=ax, legend=False)
+    sns.barplot(
+        x=class_counts.index,
+        y=class_counts.values,
+        hue=class_counts.index,
+        palette="viridis",
+        ax=ax,
+        legend=False,
+    )
     ax.set_title("Class Distribution", fontsize=16)
     ax.set_xlabel("Label", fontsize=14)
     ax.set_ylabel("Count", fontsize=14)
@@ -76,7 +83,9 @@ def analyze_text_lengths(df: pd.DataFrame, save: bool = True) -> None:
 
     # Boxplot by class
     fig, ax = plt.subplots(figsize=(10, 6))
-    sns.boxplot(x="label", y="text_length", hue="label", data=df, ax=ax, palette="Set2", legend=False)
+    sns.boxplot(
+        x="label", y="text_length", hue="label", data=df, ax=ax, palette="Set2", legend=False
+    )
     ax.set_title("Text Length by Class", fontsize=16)
     ax.set_xlabel("Label", fontsize=14)
     ax.set_ylabel("Text Length (characters)", fontsize=14)
@@ -113,7 +122,7 @@ def run_eda(csv_path: Path) -> pd.DataFrame:
         Loaded DataFrame.
     """
     logger.info("Loading data from %s", csv_path)
-    df = load_file(csv_path)
+    df = load_data_csv(csv_path)
 
     logger.info("Dataset shape: %d rows, %d columns", len(df), len(df.columns))
     logger.info("Column types:\n%s", df.dtypes.to_string())
