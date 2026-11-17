@@ -223,7 +223,10 @@ __marimo__/
 .dvc-aws-credentials
 
 # GigaCode
-.gigacode_vsc
+.gigacode_vsc/
+
+# VSCode
+.vscode/
 
 # Program outputs
 outputs/
