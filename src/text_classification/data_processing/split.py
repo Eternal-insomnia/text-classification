@@ -25,17 +25,17 @@ def split_dataframe(
 
 def main() -> None:
     parser = argparse.ArgumentParser()
-    parser.add_argument("--workdir", required=True, type=Path)
+    parser.add_argument("--datadir", required=True, type=Path)
     parser.add_argument("--test_size", required=False, type=float)
     parser.add_argument("--random_state", required=False, type=int)
     args = parser.parse_args()
 
-    df = pd.read_parquet(args.workdir / "ag_news_proc.parquet")
+    df = pd.read_parquet(args.datadir / "ag_news_proc.parquet")
 
     train_df, test_df = split_dataframe(df, args.test_size, args.random_state)
 
-    train_df.to_parquet(args.workdir / "train.parquet", index=False)
-    test_df.to_parquet(args.workdir / "test.parquet", index=False)
+    train_df.to_parquet(args.datadir / "train.parquet", index=False)
+    test_df.to_parquet(args.datadir / "test.parquet", index=False)
 
 
 if __name__ == "__main__":

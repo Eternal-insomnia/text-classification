@@ -16,7 +16,7 @@ stages:
   split:
     cmd: >-
       uv run python ${workdir}/data_processing/split.py
-      --workdir ${data.processed_dir}
+      --datadir ${data.processed_dir}
       --test_size ${data.test_size}
       --random_state ${data.random_state}
     deps:
