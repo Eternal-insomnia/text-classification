@@ -43,12 +43,12 @@ def main() -> None:
         model.fit(X=X_train, y=y_train)
 
         train_time = time.time() - start_time
-        logger.info(msg=f"Train time {train_time:.2f}")
+        logger.info(msg=f"Train time {train_time:.2f}s")
 
         model_path = args.out / f"{params['model']['name']}.joblib"
         args.out.mkdir(parents=True, exist_ok=True)
         joblib.dump(value=model, filename=model_path)
-        logger.info(msg=f"Saved model {params['model']['name']} to {model_path}")
+        logger.info(msg=f"Saved model to {model_path}")
 
 
 if __name__ == "__main__":
