@@ -12,12 +12,15 @@ def main() -> None:
     args = parser.parse_args()
 
     with open(file="params.yaml", encoding="utf-8") as f:
-        params = yaml.safe_load(stream=f)["data"]
+        params = yaml.safe_load(stream=f)
 
     df = pd.read_parquet(args.datadir / "ag_news_proc.parquet")
 
     train_df, test_df = train_test_split(
-        df, test_size=params["test_size"], random_state=params["random_state"], stratify=df["label"]
+        df,
+        test_size=params["data"]["test_size"],
+        random_state=params["random_state"],
+        stratify=df["label"],
     )
 
     train_df.to_parquet(path=args.datadir / "train.parquet", index=False)

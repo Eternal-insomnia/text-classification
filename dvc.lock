@@ -36,12 +36,13 @@ stages:
       size: 13826743
     - path: src/text_classification/data_processing/split.py
       hash: md5
-      md5: 9eebef89b41dc9b06c7be93fd7f083e8
-      size: 821
+      md5: 87e9374433ca66095eee68d5f9e53908
+      size: 849
     params:
       params.yaml:
-        data.random_state: 42
+        data.processed_dir: data/processed
         data.test_size: 0.2
+        random_state: 42
     outs:
     - path: data/processed/test.parquet
       hash: md5
@@ -70,6 +71,7 @@ stages:
       size: 1181
     params:
       params.yaml:
+        data.processed_dir: data/processed
         features:
           max_features: 10000
           ngram_range:
@@ -89,3 +91,33 @@ stages:
       hash: md5
       md5: d54d5d4c7db84f9da97e560a25e76167
       size: 383728
+  train:
+    cmd: uv run python src/text_classification/model_training/train.py --datadir
+      data/processed --out outputs/report
+    deps:
+    - path: data/processed/X_train.npz
+      hash: md5
+      md5: a886d30386d6c0f0981cc2e2c22a36c4
+      size: 21661869
+    - path: data/processed/train.parquet
+      hash: md5
+      md5: a3c38d3ce99a541c4e990724adce1198
+      size: 12068488
+    - path: src/text_classification/model_training/train.py
+      hash: md5
+      md5: 113e0a1a637a02e45c8c9170fdf0a7c3
+      size: 1619
+    params:
+      params.yaml:
+        data.processed_dir: data/processed
+        model:
+          name: logreg
+          c: 1.0
+          max_iter: 1000
+        output.dir: outputs/report
+        random_state: 42
+    outs:
+    - path: outputs/report/logreg.joblib
+      hash: md5
+      md5: 364622de496e177db49d0fbdcf75d76c
+      size: 320919

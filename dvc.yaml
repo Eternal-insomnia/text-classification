@@ -26,8 +26,9 @@ stages:
     - ${data.processed_dir}/train.parquet
     - ${data.processed_dir}/test.parquet
     params:
+    - random_state
+    - data.processed_dir
     - data.test_size
-    - data.random_state
   featurize:
     cmd: >-
       uv run python ${workdir}/data_processing/feature_extraction.py
@@ -41,4 +42,21 @@ stages:
     - ${data.processed_dir}/X_train.npz
     - ${data.processed_dir}/X_test.npz
     params:
+    - data.processed_dir
     - features
+  train:
+    cmd: >-
+      uv run python ${workdir}/model_training/train.py
+      --datadir ${data.processed_dir}
+      --out ${output.dir}
+    deps:
+    - ${workdir}/model_training/train.py
+    - ${data.processed_dir}/X_train.npz
+    - ${data.processed_dir}/train.parquet
+    outs:
+    - ${output.dir}/${model.name}.joblib
+    params:
+    - random_state
+    - data.processed_dir
+    - model
+    - output.dir
