@@ -6,3 +6,8 @@ data:
   nltk_dir: "data/nltk"
   test_size: 0.2
   random_state: 42
+
+features:
+  max_features: 10000
+  ngram_range: [1, 2]
+  sublinear_tf: true

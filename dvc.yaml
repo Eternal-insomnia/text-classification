@@ -29,3 +29,17 @@ stages:
     - data.processed_dir
     - data.test_size
     - data.random_state
+  featurize:
+    cmd: >-
+      uv run python ${workdir}/data_processing/feature_extraction.py
+      --datadir ${data.processed_dir}
+    deps:
+    - ${workdir}/data_processing/feature_extraction.py
+    - ${data.processed_dir}/train.parquet
+    - ${data.processed_dir}/test.parquet
+    outs:
+    - ${data.processed_dir}/vectorizer.joblib
+    - ${data.processed_dir}/X_train.npz
+    - ${data.processed_dir}/X_test.npz
+    params:
+    - features

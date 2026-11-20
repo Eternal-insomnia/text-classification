@@ -24,38 +24,9 @@ stages:
       hash: md5
       md5: 9042f4b168736af4beaa8f4cc5b0ff2a
       size: 13826743
-  feature_extraction:
-    cmd: uv run python 
-      src/text_classification/data_processing/feature_extraction.py
-    deps:
-    - path: data/processed/ag_news_test_proc.csv
-      hash: md5
-      md5: 387b2cba8c46542d277bb664cf847399
-      size: 1391198
-    - path: data/processed/ag_news_train_proc.csv
-      hash: md5
-      md5: 93ec5b4fe97022f326c7cacf95656b41
-      size: 22065537
-    - path: src/text_classification/data_processing/feature_extraction.py
-      hash: md5
-      md5: dae89a1f7347654f85b0ec8b5252d5b4
-      size: 1955
-    outs:
-    - path: data/processed/X_test.npz
-      hash: md5
-      md5: 2b6514a2686f1cd100ac068d62a82660
-      size: 1577122
-    - path: data/processed/X_train.npz
-      hash: md5
-      md5: 09d13657e0f2aa914a7cdf53cd493cba
-      size: 24537215
-    - path: data/processed/vectorizer.joblib
-      hash: md5
-      md5: ebcaecec79f5d3ef4ebbb7df0b24971f
-      size: 383721
   split:
     cmd: uv run python src/text_classification/data_processing/split.py 
-      --workdir data/processed --test_size 0.2 --random_state 42
+      --datadir data/processed --test_size 0.2 --random_state 42
     deps:
     - path: data/processed/ag_news_proc.parquet
       hash: md5
@@ -63,7 +34,7 @@ stages:
       size: 13826743
     - path: src/text_classification/data_processing/split.py
       hash: md5
-      md5: e08a58ede6842d6a20303a7861925e3c
+      md5: f68996f904122ab4bf98c1aba57ee5d2
       size: 1364
     params:
       params.yaml:
@@ -79,3 +50,41 @@ stages:
       hash: md5
       md5: a3c38d3ce99a541c4e990724adce1198
       size: 12068488
+  featurize:
+    cmd: uv run python 
+      src/text_classification/data_processing/feature_extraction.py --datadir 
+      data/processed
+    deps:
+    - path: data/processed/test.parquet
+      hash: md5
+      md5: 463ab0654914645a422ac218d2eb7e68
+      size: 3025635
+    - path: data/processed/train.parquet
+      hash: md5
+      md5: a3c38d3ce99a541c4e990724adce1198
+      size: 12068488
+    - path: src/text_classification/data_processing/feature_extraction.py
+      hash: md5
+      md5: aa145ea616a6a9d720ab8186554ac9ab
+      size: 1181
+    params:
+      params.yaml:
+        features:
+          max_features: 10000
+          ngram_range:
+          - 1
+          - 2
+          sublinear_tf: true
+    outs:
+    - path: data/processed/X_test.npz
+      hash: md5
+      md5: 3afa354ce9f099f7fb461bcb22dd2ae2
+      size: 5320845
+    - path: data/processed/X_train.npz
+      hash: md5
+      md5: a886d30386d6c0f0981cc2e2c22a36c4
+      size: 21661869
+    - path: data/processed/vectorizer.joblib
+      hash: md5
+      md5: d54d5d4c7db84f9da97e560a25e76167
+      size: 383728
