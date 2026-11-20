@@ -18,6 +18,8 @@ stages:
       size: 6117
     params:
       params.yaml:
+        data.nltk_dir: data/nltk
+        data.processed_dir: data/processed
         data.raw_dir: data/raw
     outs:
     - path: data/processed/ag_news_proc.parquet
@@ -26,7 +28,7 @@ stages:
       size: 13826743
   split:
     cmd: uv run python src/text_classification/data_processing/split.py 
-      --datadir data/processed --test_size 0.2 --random_state 42
+      --datadir data/processed
     deps:
     - path: data/processed/ag_news_proc.parquet
       hash: md5
@@ -34,11 +36,10 @@ stages:
       size: 13826743
     - path: src/text_classification/data_processing/split.py
       hash: md5
-      md5: f68996f904122ab4bf98c1aba57ee5d2
-      size: 1364
+      md5: 9eebef89b41dc9b06c7be93fd7f083e8
+      size: 821
     params:
       params.yaml:
-        data.processed_dir: data/processed
         data.random_state: 42
         data.test_size: 0.2
     outs:

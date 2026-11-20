@@ -13,12 +13,12 @@ stages:
     - ${data.processed_dir}/ag_news_proc.parquet
     params:
     - data.raw_dir
+    - data.processed_dir
+    - data.nltk_dir
   split:
     cmd: >-
       uv run python ${workdir}/data_processing/split.py
       --datadir ${data.processed_dir}
-      --test_size ${data.test_size}
-      --random_state ${data.random_state}
     deps:
     - ${workdir}/data_processing/split.py
     - ${data.processed_dir}/ag_news_proc.parquet
@@ -26,7 +26,6 @@ stages:
     - ${data.processed_dir}/train.parquet
     - ${data.processed_dir}/test.parquet
     params:
-    - data.processed_dir
     - data.test_size
     - data.random_state
   featurize:
