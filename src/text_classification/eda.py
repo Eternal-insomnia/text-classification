@@ -10,6 +10,7 @@ import seaborn as sns
 
 from text_classification.data_processing.process import load_data_csv
 
+logging.basicConfig(level=logging.INFO, format="%(levelname)s: %(message)s")
 logger = logging.getLogger(__name__)
 
 matplotlib.use("Agg")
