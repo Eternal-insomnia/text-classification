@@ -121,3 +121,33 @@ stages:
       hash: md5
       md5: 364622de496e177db49d0fbdcf75d76c
       size: 320919
+  evaluation:
+    cmd: uv run python src/text_classification/model_training/evaluation.py 
+      --datadir data/processed --modeldir outputs/report --out outputs/report
+    deps:
+    - path: data/processed/X_test.npz
+      hash: md5
+      md5: 3afa354ce9f099f7fb461bcb22dd2ae2
+      size: 5320845
+    - path: data/processed/test.parquet
+      hash: md5
+      md5: 463ab0654914645a422ac218d2eb7e68
+      size: 3025635
+    - path: outputs/report/logreg.joblib
+      hash: md5
+      md5: 364622de496e177db49d0fbdcf75d76c
+      size: 320919
+    - path: src/text_classification/model_training/evaluation.py
+      hash: md5
+      md5: ce639d701da0fe14088c80dafb7892f2
+      size: 3592
+    params:
+      params.yaml:
+        data.processed_dir: data/processed
+        model.name: logreg
+        output.dir: outputs/report
+    outs:
+    - path: outputs/report/logreg_report.csv
+      hash: md5
+      md5: 053f6094486446bcd41a406ed6811cd0
+      size: 221
