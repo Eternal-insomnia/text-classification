@@ -33,3 +33,26 @@ uv run ty check .               # type check
 uv run ty check . --watch       # type check after editing
 uv run ty check --error all     # all rules as errors
 ```
+
+# DVC Pipeline
+```mermaid
+flowchart TD
+    node1["data/nltk.dvc"]
+    node2["data/raw/ag_news_test.csv.dvc"]
+    node3["data/raw/ag_news_train.csv.dvc"]
+    node4["evaluation"]
+    node5["featurize"]
+    node6["prepare"]
+    node7["split"]
+    node8["train"]
+    node1-->node6
+    node2-->node6
+    node3-->node6
+    node5-->node4
+    node5-->node8
+    node6-->node7
+    node7-->node4
+    node7-->node5
+    node7-->node8
+    node8-->node4
+```
