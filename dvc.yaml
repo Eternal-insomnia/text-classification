@@ -9,6 +9,7 @@ stages:
     - ${workdir}/data_processing/process.py
     - ${data.raw_dir}/ag_news_train.csv
     - ${data.raw_dir}/ag_news_test.csv
+    - ${data.nltk_dir}
     outs:
     - ${data.processed_dir}/ag_news_proc.parquet
     params:

@@ -4,6 +4,11 @@ stages:
     cmd: uv run python src/text_classification/data_processing/process.py 
       --input data/raw --output data/processed --nltk data/nltk
     deps:
+    - path: data/nltk
+      hash: md5
+      md5: 8fd51af43ea674581827c6bb2e562a83.dir
+      size: 18145711
+      nfiles: 40
     - path: data/raw/ag_news_test.csv
       hash: md5
       md5: 2a3ae7ef5a1ac5563600b0bb18cffc47
